@@ -1,0 +1,35 @@
+.display-flex {
+  display: flex;
+}
+.justify-content-space-between {
+  justify-content: space-between;
+}
+.itemCenter {
+  justify-content: center;
+  align-items: center;
+}
+.text-bold-color-style {
+  font-weight: bold;
+  color: beige;
+}
+.text-color {
+  color: beige;
+}
+.font24 {
+  font-size: 24px;
+}
+.font18 {
+  font-size: 18px;
+}
+.font16 {
+  font-size: 16px;
+}
+.font14 {
+  font-size: 14px;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+.site-layout-background {
+  background-color: #fff;
+}
