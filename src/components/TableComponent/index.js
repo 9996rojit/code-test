@@ -65,7 +65,7 @@ const TableComponent = () => {
     },
     {
       title: "BIOLOGICALHAZARD",
-      dataIndex: "RecipeSubCategoryTitle",
+      dataIndex: "BiologicalHazardTitle",
       key: "4",
       width: 100,
     },
