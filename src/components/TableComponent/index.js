@@ -4,6 +4,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import ProcessComponent from "../processComponent";
 import ModelComponent from "../modalComponent";
 import { ToggleContext } from "../../utils/context/ToggleContext";
+import {jsonToRequired} from "../../utils/DataFormatter"
 
 
 
@@ -14,20 +15,20 @@ const TableComponent = () => {
   const  { toggle, setToggle } = context;
   
   const [loading, setLoading] = useState(true);
-
-  const addRowHandler = (index) => {
+  
+  const addRowHandler = (index,record) => {
     const tempData = {
-      RecipeCategoryId: 111,
-      RecipeSubCategoryId: 363,
-      BiologicalHazardId: 141,
-      CategoryTitle: "Non-Alcoholicccc",
-      RecipeSubCategoryTitle: "Ready-to-drinkdddda ",
-      BiologicalHazardTitle: "asdfasdf botulinum ",
-      IsExists: true,
-      Status: false,
-      IngredientName: "Water",
-      RecipeClientDetailId: 33,
-      IngredientId: 148,
+      RecipeCategoryId: record.RecipeCategoryId,
+      RecipeSubCategoryId: record.RecipeSubCategoryId,
+      BiologicalHazardId: record.BiologicalHazardId,
+      CategoryTitle: record.CategoryTitle,
+      RecipeSubCategoryTitle: record.RecipeSubCategoryTitle,
+      BiologicalHazardTitle: record.BiologicalHazardTitle,
+      IsExists: record.IsExists,
+      Status: record.Status,
+      IngredientName: record.IngredientName,
+      RecipeClientDetailId: record.RecipeClientDetailId,
+      IngredientId: record.IngredientId,
     };
     const tempArray = [...data];
     tempArray.splice(index + 1, 0, tempData);
@@ -37,7 +38,7 @@ const TableComponent = () => {
   const fetchDataFromApi = async () => {
     const response = await fetch("/sampleData.json");
     const jsonData = await response.json();
-    setData(jsonData);
+    setData(jsonToRequired(jsonData));
     setLoading(false)
   };
   useEffect(() => {
@@ -47,9 +48,9 @@ const TableComponent = () => {
   const columns = [
     {
       title: "INGREDIENT NAME",
-      dataIndex: "IngredientName",
-      key: "IngredientId",
-      width: 100,
+      dataIndex: 'IngredientName',
+      width:100,
+      key:"IngredientId"
     },
     {
       title: "CATEGORY",
@@ -65,9 +66,14 @@ const TableComponent = () => {
     },
     {
       title: "BIOLOGICALHAZARD",
-      dataIndex: "BiologicalHazardTitle",
+      dataIndex: "BiologicalHazard",
       key: "4",
       width: 100,
+      render:(text,record,index)=>{
+        return text?.map((item,index)=>{
+          return item?.BiologicalHazardTitle
+        })
+      }
     },
     {
       title: "HAZARD ADDRESSED BY SUPPLIER",
@@ -83,7 +89,7 @@ const TableComponent = () => {
         return (
           <PlusOutlined
           style={{ color: "green" }}
-          onClick={() => addRowHandler(index)}
+          onClick={() => addRowHandler(index,record)}
           />
           );
         },
